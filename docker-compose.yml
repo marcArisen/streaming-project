@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+    nodeserver:
+        build:
+            context: ./application
+        ports:
+            - "5002:5002"
+        volumes:
+            - shared-volume:/usr/src/app/videos
+    nginx:
+        restart: always
+        build:
+            context: ./nginx
+        ports:
+            - "3030:80"
+        volumes:
+            # - ./nginx/examples/videos:/opt/static/videos
+            - ./nginx/examples/nginx.conf:/usr/local/nginx/conf/nginx.conf
+            - shared-volume:/opt/static/videos
+volumes:
+  shared-volume:
+# volumes:
+#   db:
+#     driver: local
