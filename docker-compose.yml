@@ -17,6 +17,12 @@ services:
             # - ./nginx/examples/videos:/opt/static/videos
             - ./nginx/examples/nginx.conf:/usr/local/nginx/conf/nginx.conf
             - shared-volume:/opt/static/videos
+    frontend:
+        build:
+            context: ./streaming-frontend
+        ports:
+            - "8080:8080"
+
 volumes:
   shared-volume:
 # volumes:

@@ -1,32 +1,44 @@
 const express = require('express');
 const multer = require('multer');
+const cors = require('cors');
 
-var file_name = ["asdda", "asdsad"];
+
+var urlNginx = "http://localhost:3030/hls/"
+var suffix = "/master.m3u8"
+/// these have to use Mongo to store ////
+var file_name = [];
+var videos_storage = []
+/////////////////////////////////////////
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/usr/src/app/videos') // specify the upload directory
+    // cb(null, '/usr/src/app/videos') // specify the upload directory
+    cb(null, './videos') // specify the upload directory
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname) // specify the file name
     file_name.push(file.originalname)
-    
+    videos_storage.push({url: `${urlNginx}${file.originalname}${suffix}`, poster: "a"})
   }
 })
 
-const upload = multer({ storage: storage })
-
+const upload = multer({ storage: storage });
 
 const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
+  console.log(req);
   res.sendFile(__dirname+'/temp.html');
 })
 
-app.get('/lists', (req, res) => {
-  res.send(file_name)
+// api to retrieve all list of videos
+app.get('/videos', (req, res) => {
+  res.send(videos_storage)
 })
 
-app.post('/upload', upload.single('video'), (req, res, next) => {
+app.post('/upload', upload.single('file'), (req, res, next) => {
   const video = req.file;
   if (!video) {
     const error = new Error('Please upload a video');

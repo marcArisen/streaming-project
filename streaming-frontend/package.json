@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "@videojs-player/vue": "^1.0.0",
+    "axios": "^1.3.4",
     "video.js": "^8.0.4",
-    "vue": "^3.2.47",
-    "vue-vjs-hls": "^1.0.0"
+    "vue": "^3.2.47"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
