@@ -8,8 +8,8 @@
     />
   </div>
 </template>
-  
-  <script>
+
+<script>
 import { defineComponent } from "vue";
 import Player from "./Player-Component.vue";
 
