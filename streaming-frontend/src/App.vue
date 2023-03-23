@@ -9,7 +9,7 @@
 import { defineComponent } from "vue";
 import UploadBox from "./components/Upload-Box-Component.vue";
 import VideoPlane from "./components/Video-Plane-Component.vue";
-import ApiService  from './services/ApiService.js'
+import ApiService from "./services/ApiService.js";
 
 export default defineComponent({
   components: {
@@ -34,6 +34,6 @@ export default defineComponent({
   async mounted() {
     this.videoList = await ApiService.getVideos();
     // console.log(this.videoList);
-  }
+  },
 });
 </script>
