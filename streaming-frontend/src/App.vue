@@ -1,85 +1,39 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div>
+    <VideoPlane :videoList="videoList"></VideoPlane>
+    <UploadBox></UploadBox>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<script>
+import { defineComponent } from "vue";
+import UploadBox from "./components/Upload-Box-Component.vue";
+import VideoPlane from "./components/Video-Plane-Component.vue";
+import ApiService from "./services/ApiService.js";
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
+export default defineComponent({
+  components: {
+    UploadBox,
+    VideoPlane,
+  },
+  data() {
+    return {
+      // mockVideoUrl: "http://localhost:3030/hls/devito,360p.mp4,480p.mp4,720p.mp4,.en_US.vtt,.urlset/master.m3u8",
+      // mockVideoUrl2: "http://localhost:3030/hls/thekid.mp4/master.m3u8",
+      // posterUrl: "none",
+      videoList: [],
+    };
+  },
+  // computed:{
+  //   async fetchVideos(){
+  //     this.videoList = await ApiService.getVideos();
+  //     console.log("CONSOLEEE: " + this.videoList);
+  //     return this.videoList
+  //   }
+  // },
+  async mounted() {
+    this.videoList = await ApiService.getVideos();
+    // console.log(this.videoList);
+  },
+});
+</script>
