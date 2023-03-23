@@ -1,16 +1,12 @@
 <template>
-  <div class="container">
-    <div>
-      <h2>Single File</h2>
-      <hr />
-      <label
-        >File
-        <input type="file" @change="handleFileUpload($event)" />
-      </label>
-      <br />
-      <button v-on:click="submitFile()">Submit</button>
-    </div>
-  </div>
+  <v-container class="d-flex align-center h-100">
+    <v-col class="text-center">
+      <v-form ref="form" @submit.prevent="submitFile">
+        <v-file-input label="Choose file" v-model="file"></v-file-input>
+        <v-btn type="submit" color="success"> Submit </v-btn>
+      </v-form>
+    </v-col>
+  </v-container>
 </template>
 
 <script>
@@ -23,13 +19,9 @@ export default {
     };
   },
   methods: {
-    handleFileUpload(event) {
-      this.file = event.target.files[0];
-    },
     submitFile() {
       let formData = new FormData();
       formData.append("file", this.file);
-      // console.log(data);
 
       axios
         .post("http://localhost:5002/upload", formData, {
