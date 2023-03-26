@@ -27,7 +27,11 @@ export default defineComponent({
     };
   },
   async mounted() {
-    this.videos = ["https://youtu.be/Lh-lcHfyEN0", "https://youtu.be/Lh-lcHfyEN0", "https://youtu.be/Lh-lcHfyEN0"]
+    this.videos = [
+      "https://youtu.be/Lh-lcHfyEN0",
+      "https://youtu.be/Lh-lcHfyEN0",
+      "https://youtu.be/Lh-lcHfyEN0",
+    ];
     // this.videos = await apiService.getVideos();
   },
 });
