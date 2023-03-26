@@ -4,7 +4,7 @@
       <v-form ref="form" @submit.prevent="submitFile">
         <v-file-input
           label="Choose file"
-          @change="uploadVideo($event)"
+          @change="inputVideo($event)"
         ></v-file-input>
         <v-btn type="submit" color="success"> Submit </v-btn>
       </v-form>
@@ -22,7 +22,7 @@ export default {
     };
   },
   methods: {
-    uploadVideo(event) {
+    inputVideo(event) {
       this.video = event.target.files[0];
     },
     async submitFile() {
