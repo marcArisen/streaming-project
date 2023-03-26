@@ -1,14 +1,24 @@
 <template>
-  <div v-for="video in videos" :key="video">
-    <video-player
-      :src="video"
-      controls
-      :loop="true"
-      :volume="0.6"
-      :width="800"
-      :height="640"
-    />
-  </div>
+  <v-row class="mx-3 mt-0">
+    <v-col
+      cols="12"
+      sm="6"
+      md="4"
+      lg="3"
+      xl="3"
+      v-for="video in videos"
+      :key="video"
+    >
+      <video-player
+        :src="video.url"
+        controls
+        loop="true"
+        volume="0.5"
+        width="auto"
+        height="auto"
+      />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -27,12 +37,7 @@ export default defineComponent({
     };
   },
   async mounted() {
-    this.videos = [
-      "https://youtu.be/Lh-lcHfyEN0",
-      "https://youtu.be/Lh-lcHfyEN0",
-      "https://youtu.be/Lh-lcHfyEN0",
-    ];
-    // this.videos = await apiService.getVideos();
+    this.videos = await apiService.getVideos();
   },
 });
 </script>

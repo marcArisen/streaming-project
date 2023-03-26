@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
     file_name.push(file.originalname);
     videos_storage.push({
       url: `${urlNginx}${file.originalname}${suffix}`,
-      poster: "a",
+      name: file.originalname,
     });
   },
 });
