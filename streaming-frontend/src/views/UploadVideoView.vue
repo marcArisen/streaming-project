@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import apiService from "../services/api-service";
 
 export default {
   data() {
@@ -25,25 +25,11 @@ export default {
     uploadVideo(event) {
       this.video = event.target.files[0];
     },
-    submitFile() {
+    async submitFile() {
       if (this.video) {
         const formData = new FormData();
         formData.append("file", this.video);
-
-        axios
-          .post("http://localhost:5002/upload", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then(function () {
-            console.log("SUCCESS!!!");
-          })
-          .catch(function () {
-            console.log("FAILURE!!!");
-          });
-
-        console.log(formData.get("file"));
+        await apiService.uploadVideo(formData);
         this.$router.push("/");
       }
     },
