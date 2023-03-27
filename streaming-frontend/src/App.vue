@@ -15,3 +15,15 @@ export default {
   }),
 };
 </script>
+
+<style>
+.router-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.v-messages__message {
+  margin-top: -5px;
+  text-align: left;
+}
+</style>
