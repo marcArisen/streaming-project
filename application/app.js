@@ -22,7 +22,6 @@ const storage = multer.diskStorage({
     //   url: `${urlNginx}${file.originalname}${suffix}`,
     //   name: file.originalname,
     // });
-    firebaseService.addVideos(file.originalname, `${urlNginx}${file.originalname}${suffix}`, 'Hello..' );
   },
 });
 
@@ -49,7 +48,9 @@ app.post("/upload", upload.single("file"), (req, res, next) => {
     error.httpStatusCode = 400;
     return next(error);
   }
-  // do something with the uploaded file
+  // add to firebase after done uploading
+  firebaseService.addVideos(req.body.name, `${urlNginx}${video.originalname}${suffix}`, req.body.description);
+  // firebaseService.addVideos(file.originalname, `${urlNginx}${file.originalname}${suffix}`, req.body.name);
   res.send("Video uploaded successfully");
 });
 
