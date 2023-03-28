@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
+const firebaseService = require('./firebase-service');
 
 var urlNginx = "http://localhost:3030/hls/";
 var suffix = "/master.m3u8";
@@ -17,10 +18,11 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname); // specify the file name
     file_name.push(file.originalname);
-    videos_storage.push({
-      url: `${urlNginx}${file.originalname}${suffix}`,
-      name: file.originalname,
-    });
+    // videos_storage.push({
+    //   url: `${urlNginx}${file.originalname}${suffix}`,
+    //   name: file.originalname,
+    // });
+    firebaseService.addVideos(file.originalname, `${urlNginx}${file.originalname}${suffix}`, 'Hello..' );
   },
 });
 
@@ -36,8 +38,8 @@ app.get("/", (req, res) => {
 });
 
 // api to retrieve all list of videos
-app.get("/videos", (req, res) => {
-  res.send(videos_storage);
+app.get("/videos", async (req, res) => {
+  res.send(await firebaseService.getVideos());
 });
 
 app.post("/upload", upload.single("file"), (req, res, next) => {
@@ -49,7 +51,6 @@ app.post("/upload", upload.single("file"), (req, res, next) => {
   }
   // do something with the uploaded file
   res.send("Video uploaded successfully");
-  console.log(file_name);
 });
 
 app.listen(5002, () => console.log("Server is up and running"));
