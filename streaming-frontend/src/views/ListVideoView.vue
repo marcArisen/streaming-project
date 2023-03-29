@@ -92,7 +92,7 @@
       <v-card-text class="text-center">
         Are you sure you want to delete video
         <br />
-        <span class="font-weight-black">{{ deleteForm.name }}</span> ?
+        <span class="font-weight-black">{{ deleteVideoName }}</span> ?
       </v-card-text>
       <v-card-actions class="justify-center mb-2">
         <v-btn
@@ -115,6 +115,7 @@ import { defineComponent } from "vue";
 import apiService from "../services/api-service";
 import { VideoPlayer } from "@videojs-player/vue";
 import "video.js/dist/video-js.css";
+
 export default defineComponent({
   components: {
     VideoPlayer,
@@ -126,9 +127,7 @@ export default defineComponent({
       searchInput: "",
       showEditDialog: false,
       showDeleteDialog: false,
-      deleteForm: {
-        name: "",
-      },
+      deleteVideoName: "",
       editForm: {
         name: "",
         description: "",
@@ -149,7 +148,7 @@ export default defineComponent({
     },
     openDeleteDialog(name) {
       this.showDeleteDialog = true;
-      this.deleteForm.name = name;
+      this.deleteVideoName = name;
     },
     async editVideo() {
       this.showEditDialog = false;
@@ -158,7 +157,7 @@ export default defineComponent({
     },
     async deleteVideo() {
       this.showDeleteDialog = false;
-      await apiService.deleteVideo(this.deleteForm);
+      await apiService.deleteVideo(this.deleteVideoName);
       window.location.reload();
     },
   },
