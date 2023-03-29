@@ -26,9 +26,15 @@ async function addVideos(videoName, videoUrl, videoDescription) {
 }
 
 async function updateVideos(videoName, data) {
-  const videoRef = firestore.collection("videos").doc(videoName);
-  await videoRef.update(data);
-  console.log("Videos updated:", videoName);
+  try {
+    const videoRef = firestore.collection("videos").doc(videoName);
+    await videoRef.update(data);
+    console.log("Videos updated:", videoName);
+    return videoName;
+  } catch (error) {
+    console.error("Error updating videos:", error);
+    return null;
+  }
 }
 
 async function getVideos() {
@@ -56,8 +62,20 @@ async function getVideoByName(videoName) {
   return videos;
 }
 
+async function deleteVideoByName(videoName) {
+  try {
+    await firestore.collection("videos").where("name", "==", videoName).delete();
+    console.log("Video deleted:", videoName);
+    return videoName;
+  } catch (error) {
+    console.error("Error deleting Video:", error);
+    return null;
+  }
+}
+
 module.exports = {
   addVideos,
   updateVideos,
   getVideos,
+  deleteVideoByName,
 };

@@ -115,7 +115,6 @@ import { defineComponent } from "vue";
 import apiService from "../services/api-service";
 import { VideoPlayer } from "@videojs-player/vue";
 import "video.js/dist/video-js.css";
-
 export default defineComponent({
   components: {
     VideoPlayer,

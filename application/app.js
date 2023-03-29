@@ -40,6 +40,31 @@ app.get("/videos", async (req, res) => {
   res.send(await firebaseService.getVideos());
 });
 
+// api to delete a video by name
+app.delete("/delete", async (req, res) => {
+  console.log(req);
+  const videoName = req.body.name;
+  const response = await firebaseService.deleteVideoByName(videoName);
+  if (response){
+    res.status(200).send("OK");
+  }else{
+    res.status(204).send(`Not Found: ${videoName}`);
+  }
+});
+
+// api to update the video
+app.put("/update", async (req, res) => {
+  console.log(req);
+  const videoName = req.body.name;
+  const videoDescription = req.body.description;
+  const response = await firebaseService.updateVideos(videoName, videoDescription);
+  if (response){
+    res.status(200).send("OK");
+  }else{
+    res.status(204).send(`Not Found: ${videoName}`);
+  }
+});
+
 app.post("/upload", upload.single("file"), (req, res, next) => {
   const video = req.file;
   if (!video) {
