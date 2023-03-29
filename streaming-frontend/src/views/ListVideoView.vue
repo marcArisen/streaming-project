@@ -34,13 +34,16 @@
         <p class="font-weight-black">{{ video.name }}</p>
         <p v-if="video.description">{{ video.description }}</p>
         <p v-else>(No description)</p>
-        <v-btn class="mx-4 my-3" color="error" @click="openDialog(video.name)">
+        <v-btn class="mx-4 my-3" color="info">
+          <v-icon>mdi-square-edit-outline</v-icon>
+        </v-btn>
+        <v-btn class="mx-4 my-3" color="error" @click="openDeleteDialog(video.name)">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </v-card>
     </v-col>
   </v-row>
-  <v-dialog v-model="showDialog" width="auto">
+  <v-dialog v-model="showDeleteDialog" width="auto">
     <v-card>
       <v-toolbar height="80" color="error">
         <v-col class="d-flex justify-space-around">
@@ -53,7 +56,7 @@
         {{ deleteVideoName }} ?
       </v-card-text>
       <v-card-actions class="justify-center">
-        <v-btn color="success" variant="outlined" @click="showDialog = false">
+        <v-btn color="success" variant="outlined" @click="showDeleteDialog = false">
           Cancel
         </v-btn>
         <v-btn color="error" variant="outlined" @click="deleteVideo()">
@@ -79,7 +82,7 @@ export default defineComponent({
       videos: [],
       filteredVideos: [],
       searchInput: "",
-      showDialog: false,
+      showDeleteDialog: false,
       deleteVideoName: "",
     };
   },
@@ -90,12 +93,12 @@ export default defineComponent({
         return video.name.toLowerCase().includes(lowerCaseSearchInput);
       });
     },
-    openDialog(name) {
-      this.showDialog = true;
+    openDeleteDialog(name) {
+      this.showDeleteDialog = true;
       this.deleteVideoName = name;
     },
     async deleteVideo() {
-      this.showDialog = false;
+      this.showDeleteDialog = false;
       // await apiService.deleteContact(this.deleteContactId);
       window.location.reload();
     },
