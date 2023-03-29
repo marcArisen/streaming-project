@@ -154,12 +154,12 @@ export default defineComponent({
     },
     async editVideo() {
       this.showEditDialog = false;
-      // await apiService.updateVideo(this.editForm);
+      await apiService.updateVideo(this.editForm);
       window.location.reload();
     },
     async deleteVideo() {
       this.showDeleteDialog = false;
-      // await apiService.deleteVideo(this.deleteForm);
+      await apiService.deleteVideo(this.deleteForm);
       window.location.reload();
     },
   },
