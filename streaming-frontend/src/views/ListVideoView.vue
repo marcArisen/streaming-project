@@ -30,7 +30,7 @@
       :key="video"
     >
       <v-card class="text-center">
-        <video-player class="my-2" :src="video.url" controls width="450" />
+        <video-player class="mb-2" :src="video.url" controls fluid="true" />
         <p class="font-weight-black">{{ video.name }}</p>
         <p v-if="video.description">{{ video.description }}</p>
         <p v-else>(No description)</p>
