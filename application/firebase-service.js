@@ -25,10 +25,12 @@ async function addVideos(videoName, videoUrl, videoDescription) {
   console.log("Videos added:", videoName);
 }
 
-async function updateVideos(videoName, data) {
+async function updateVideos(videoName, newDescription) {
   try {
-    const videoRef = firestore.collection("videos").doc(videoName);
-    await videoRef.update(data);
+    const [videoID, videoData] = await getVideoByName(videoName);
+    const videoRef = firestore.collection("videos").doc(videoID);
+    videoData.description = newDescription;
+    await videoRef.update(videoData);
     console.log("Videos updated:", videoName);
     return videoName;
   } catch (error) {
@@ -51,25 +53,34 @@ async function getVideoByName(videoName) {
   const query = firestore.collection("videos").where("name", "==", videoName);
   const snapshot = await query.get();
   let video;
+  let videoID;
   if (!snapshot.empty) {
     snapshot.forEach((doc) => {
       // console.log("Videos:", doc.data());
       video = doc.data();
+      videoID = doc.id
     });
   } else {
     console.log("No  found");
   }
-  return videos;
+  return [videoID, video];
 }
 
 async function deleteVideoByName(videoName) {
   try {
-    await firestore.collection("videos").where("name", "==", videoName).delete();
-    console.log("Video deleted:", videoName);
-    return videoName;
+    const query = firestore.collection("videos").where("name", "==", videoName);
+    const querySnapshot = await query.get();
+
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach(async (doc) => {
+        await doc.ref.delete();
+        console.log("Video deleted:", doc.id);
+      });
+    } else {
+      console.log("No Video found.");
+    }
   } catch (error) {
     console.error("Error deleting Video:", error);
-    return null;
   }
 }
 
