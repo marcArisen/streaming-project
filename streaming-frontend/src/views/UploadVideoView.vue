@@ -24,11 +24,14 @@
         ></v-file-input>
         <div class="mt-6">
           <RouterLink class="router-link" to="/">
-            <v-btn prepend-icon="mdi-close" color="error">
-              Cancel
-            </v-btn>
+            <v-btn prepend-icon="mdi-close" color="error"> Cancel </v-btn>
           </RouterLink>
-          <v-btn class="ml-6" type="submit" prepend-icon="mdi-content-save" color="success">
+          <v-btn
+            class="ml-6"
+            type="submit"
+            prepend-icon="mdi-content-save"
+            color="success"
+          >
             Submit
           </v-btn>
         </div>

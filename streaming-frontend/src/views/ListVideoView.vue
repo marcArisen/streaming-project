@@ -34,10 +34,18 @@
         <p class="font-weight-black">{{ video.name }}</p>
         <p v-if="video.description">{{ video.description }}</p>
         <p v-else>(No description)</p>
-        <v-btn class="mx-4 my-3" color="info" @click="openEditDialog(video.name, video.description)">
+        <v-btn
+          class="mx-4 my-3"
+          color="info"
+          @click="openEditDialog(video.name, video.description)"
+        >
           <v-icon icon="mdi-square-edit-outline"></v-icon>
         </v-btn>
-        <v-btn class="mx-4 my-3" color="error" @click="openDeleteDialog(video.name)">
+        <v-btn
+          class="mx-4 my-3"
+          color="error"
+          @click="openDeleteDialog(video.name)"
+        >
           <v-icon icon="mdi-delete"></v-icon>
         </v-btn>
       </v-card>
@@ -51,7 +59,9 @@
         </v-col>
       </v-toolbar>
       <v-card-text class="text-center">
-        Edit <span class="font-weight-black">{{ editVideoName }}</span>'s description
+        Edit
+        <span class="font-weight-black">{{ editVideoName }}</span>
+        's description
         <v-textarea
           class="mt-4"
           label="Description"
@@ -59,7 +69,11 @@
         ></v-textarea>
       </v-card-text>
       <v-card-actions class="justify-center mb-2">
-        <v-btn color="secondary" variant="outlined" @click="showEditDialog = false">
+        <v-btn
+          color="secondary"
+          variant="outlined"
+          @click="showEditDialog = false"
+        >
           Cancel
         </v-btn>
         <v-btn color="success" variant="outlined" @click="editVideo()">
@@ -81,7 +95,11 @@
         <span class="font-weight-black">{{ deleteVideoName }}</span> ?
       </v-card-text>
       <v-card-actions class="justify-center mb-2">
-        <v-btn color="success" variant="outlined" @click="showDeleteDialog = false">
+        <v-btn
+          color="success"
+          variant="outlined"
+          @click="showDeleteDialog = false"
+        >
           Cancel
         </v-btn>
         <v-btn color="error" variant="outlined" @click="deleteVideo()">
