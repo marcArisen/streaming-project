@@ -34,28 +34,53 @@
         <p class="font-weight-black">{{ video.name }}</p>
         <p v-if="video.description">{{ video.description }}</p>
         <p v-else>(No description)</p>
-        <v-btn class="mx-4 my-3" color="info">
-          <v-icon>mdi-square-edit-outline</v-icon>
+        <v-btn class="mx-4 my-3" color="info" @click="openEditDialog(video.name, video.description)">
+          <v-icon icon="mdi-square-edit-outline"></v-icon>
         </v-btn>
         <v-btn class="mx-4 my-3" color="error" @click="openDeleteDialog(video.name)">
-          <v-icon>mdi-delete</v-icon>
+          <v-icon icon="mdi-delete"></v-icon>
         </v-btn>
       </v-card>
     </v-col>
   </v-row>
-  <v-dialog v-model="showDeleteDialog" width="auto">
+  <v-dialog v-model="showEditDialog" width="500">
+    <v-card>
+      <v-toolbar height="80" color="warning">
+        <v-col class="d-flex justify-space-around">
+          <v-icon icon="mdi-square-edit-outline" size="55"></v-icon>
+        </v-col>
+      </v-toolbar>
+      <v-card-text class="text-center">
+        Edit <span class="font-weight-black">{{ editVideoName }}</span>'s description
+        <v-textarea
+          class="mt-4"
+          label="Description"
+          v-model="editVideoDescription"
+        ></v-textarea>
+      </v-card-text>
+      <v-card-actions class="justify-center mb-2">
+        <v-btn color="secondary" variant="outlined" @click="showEditDialog = false">
+          Cancel
+        </v-btn>
+        <v-btn color="success" variant="outlined" @click="editVideo()">
+          Save
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+  <v-dialog v-model="showDeleteDialog" width="400">
     <v-card>
       <v-toolbar height="80" color="error">
         <v-col class="d-flex justify-space-around">
-          <v-icon icon="mdi-alert-circle-outline" size="60"></v-icon>
+          <v-icon icon="mdi-delete" size="60"></v-icon>
         </v-col>
       </v-toolbar>
       <v-card-text class="text-center">
         Are you sure you want to delete video
         <br />
-        {{ deleteVideoName }} ?
+        <span class="font-weight-black">{{ deleteVideoName }}</span> ?
       </v-card-text>
-      <v-card-actions class="justify-center">
+      <v-card-actions class="justify-center mb-2">
         <v-btn color="success" variant="outlined" @click="showDeleteDialog = false">
           Cancel
         </v-btn>
@@ -82,8 +107,11 @@ export default defineComponent({
       videos: [],
       filteredVideos: [],
       searchInput: "",
+      showEditDialog: false,
       showDeleteDialog: false,
       deleteVideoName: "",
+      editVideoName: "",
+      editVideoDescription: "",
     };
   },
   methods: {
@@ -93,13 +121,23 @@ export default defineComponent({
         return video.name.toLowerCase().includes(lowerCaseSearchInput);
       });
     },
+    openEditDialog(name, description) {
+      this.showEditDialog = true;
+      this.editVideoName = name;
+      this.editVideoDescription = description;
+    },
     openDeleteDialog(name) {
       this.showDeleteDialog = true;
       this.deleteVideoName = name;
     },
+    async editVideo() {
+      this.showEditDialog = false;
+      // await apiService.updateVideo(this.editVideoName, this.editVideoDescription);
+      window.location.reload();
+    },
     async deleteVideo() {
       this.showDeleteDialog = false;
-      // await apiService.deleteContact(this.deleteContactId);
+      // await apiService.deleteVideo(this.deleteVideoName);
       window.location.reload();
     },
   },

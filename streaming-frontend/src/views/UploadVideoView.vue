@@ -23,14 +23,14 @@
           @change="inputVideo($event)"
         ></v-file-input>
         <div class="mt-6">
-          <v-btn type="submit" prepend-icon="mdi-content-save" color="success">
-            Submit
-          </v-btn>
           <RouterLink class="router-link" to="/">
-            <v-btn class="ml-6" prepend-icon="mdi-close" color="error">
+            <v-btn prepend-icon="mdi-close" color="error">
               Cancel
             </v-btn>
           </RouterLink>
+          <v-btn class="ml-6" type="submit" prepend-icon="mdi-content-save" color="success">
+            Submit
+          </v-btn>
         </div>
       </v-form>
     </v-col>
