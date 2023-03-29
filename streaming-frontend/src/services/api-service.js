@@ -17,7 +17,7 @@ export default {
   async updateVideo(body) {
     return await axios.put(`${rootApi}/update`, body);
   },
-  async deleteVideo(name) {
-    return await axios.delete(`${rootApi}/delete`, name);
+  async deleteVideo(body) {
+    return await axios.delete(`${rootApi}/delete`, body);
   },
 };

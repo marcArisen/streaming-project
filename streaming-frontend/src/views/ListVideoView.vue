@@ -92,7 +92,7 @@
       <v-card-text class="text-center">
         Are you sure you want to delete video
         <br />
-        <span class="font-weight-black">{{ deleteVideoName }}</span> ?
+        <span class="font-weight-black">{{ deleteForm.name }}</span> ?
       </v-card-text>
       <v-card-actions class="justify-center mb-2">
         <v-btn
@@ -127,7 +127,9 @@ export default defineComponent({
       searchInput: "",
       showEditDialog: false,
       showDeleteDialog: false,
-      deleteVideoName: "",
+      deleteForm: {
+        name: "",
+      },
       editForm: {
         name: "",
         description: "",
@@ -148,7 +150,7 @@ export default defineComponent({
     },
     openDeleteDialog(name) {
       this.showDeleteDialog = true;
-      this.deleteVideoName = name;
+      this.deleteForm.name = name;
     },
     async editVideo() {
       this.showEditDialog = false;
@@ -157,7 +159,7 @@ export default defineComponent({
     },
     async deleteVideo() {
       this.showDeleteDialog = false;
-      // await apiService.deleteVideo(this.deleteVideoName);
+      // await apiService.deleteVideo(this.deleteForm);
       window.location.reload();
     },
   },
