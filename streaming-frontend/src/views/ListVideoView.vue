@@ -60,12 +60,12 @@
       </v-toolbar>
       <v-card-text class="text-center">
         Edit
-        <span class="font-weight-black">{{ editVideoName }}</span>
+        <span class="font-weight-black">{{ editForm.name }}</span>
         's description
         <v-textarea
           class="mt-4"
           label="Description"
-          v-model="editVideoDescription"
+          v-model="editForm.description"
         ></v-textarea>
       </v-card-text>
       <v-card-actions class="justify-center mb-2">
@@ -128,8 +128,10 @@ export default defineComponent({
       showEditDialog: false,
       showDeleteDialog: false,
       deleteVideoName: "",
-      editVideoName: "",
-      editVideoDescription: "",
+      editForm: {
+        name: "",
+        description: "",
+      }
     };
   },
   methods: {
@@ -141,8 +143,8 @@ export default defineComponent({
     },
     openEditDialog(name, description) {
       this.showEditDialog = true;
-      this.editVideoName = name;
-      this.editVideoDescription = description;
+      this.editForm.name = name;
+      this.editForm.description = description;
     },
     openDeleteDialog(name) {
       this.showDeleteDialog = true;
@@ -150,7 +152,7 @@ export default defineComponent({
     },
     async editVideo() {
       this.showEditDialog = false;
-      // await apiService.updateVideo(this.editVideoName, this.editVideoDescription);
+      // await apiService.updateVideo(this.editForm);
       window.location.reload();
     },
     async deleteVideo() {
