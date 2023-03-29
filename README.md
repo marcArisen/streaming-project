@@ -1,6 +1,6 @@
 # streaming-project
 
-Bitbucket URL: 
+Bitbucket URL: https://bitbucket.org/streaming-platform/streaming-project/
 
 Virtual host URL: http://52.221.246.233:8080/
 
