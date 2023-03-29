@@ -15,7 +15,6 @@ services:
     ports:
       - "3030:80"
     volumes:
-      # - ./nginx/examples/videos:/opt/static/videos
       - ./nginx/examples/nginx.conf:/usr/local/nginx/conf/nginx.conf
       - shared-volume:/opt/static/videos
   frontend:
@@ -26,6 +25,3 @@ services:
 
 volumes:
   shared-volume:
-    # volumes:
-    #   db:
-    #     driver: local
