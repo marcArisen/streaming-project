@@ -3,7 +3,8 @@ const multer = require("multer");
 const cors = require("cors");
 const firebaseService = require("./firebase-service");
 
-var urlNginx = "http://localhost:3030/hls/";
+var baseUrl = process.env.BASE_URL || "http://localhost:3030";
+var urlNginx = `${baseUrl}/hls/`;
 var suffix = "/master.m3u8";
 var file_name = [];
 var videos_storage = [];
@@ -45,9 +46,9 @@ app.delete("/delete/:name", async (req, res) => {
   console.log(req);
   const videoName = req.params.name;
   const response = await firebaseService.deleteVideoByName(videoName);
-  if (response){
+  if (response) {
     res.status(200).send("OK");
-  }else{
+  } else {
     res.status(204).send(`Not Found: ${videoName}`);
   }
 });
@@ -57,10 +58,13 @@ app.put("/update", async (req, res) => {
   // console.log(req);
   const videoName = req.body.name;
   const videoDescription = req.body.description;
-  const response = await firebaseService.updateVideos(videoName, videoDescription);
-  if (response){
+  const response = await firebaseService.updateVideos(
+    videoName,
+    videoDescription
+  );
+  if (response) {
     res.status(200).send("OK");
-  }else{
+  } else {
     res.status(204).send(`Not Found: ${videoName}`);
   }
 });

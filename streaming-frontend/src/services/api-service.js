@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const rootApi = "http://localhost:5002";
+const rootApi = import.meta.env.VITE_BACKEND_URL || "http://localhost:5002";
 
 export default {
   async getVideos() {

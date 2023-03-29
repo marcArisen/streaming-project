@@ -58,7 +58,7 @@ async function getVideoByName(videoName) {
     snapshot.forEach((doc) => {
       // console.log("Videos:", doc.data());
       video = doc.data();
-      videoID = doc.id
+      videoID = doc.id;
     });
   } else {
     console.log("No  found");
