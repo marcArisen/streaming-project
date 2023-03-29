@@ -1,11 +1,10 @@
 const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
-const firebaseService = require('./firebase-service');
+const firebaseService = require("./firebase-service");
 
 var urlNginx = "http://localhost:3030/hls/";
 var suffix = "/master.m3u8";
-/// these have to use Mongo to store ////
 var file_name = [];
 var videos_storage = [];
 /////////////////////////////////////////
@@ -49,7 +48,11 @@ app.post("/upload", upload.single("file"), (req, res, next) => {
     return next(error);
   }
   // add to firebase after done uploading
-  firebaseService.addVideos(req.body.name, `${urlNginx}${video.originalname}${suffix}`, req.body.description);
+  firebaseService.addVideos(
+    req.body.name,
+    `${urlNginx}${video.originalname}${suffix}`,
+    req.body.description
+  );
   // firebaseService.addVideos(file.originalname, `${urlNginx}${file.originalname}${suffix}`, req.body.name);
   res.send("Video uploaded successfully");
 });

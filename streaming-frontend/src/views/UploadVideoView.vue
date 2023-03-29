@@ -3,16 +3,33 @@
     <v-col class="text-center">
       <h1>Add a Video</h1>
       <v-form class="mt-3" ref="form" @submit.prevent="submit">
-        <v-text-field label="Video Name *" v-model="form.name" prepend-icon="mdi-tag-text-outline"
+        <v-text-field
+          label="Video Name *"
+          v-model="form.name"
+          prepend-icon="mdi-tag-text-outline"
           hint="Video Name must not contain any space and is not editable."
-          :rules="[rules.required, rules.name]"></v-text-field>
-        <v-textarea label="Description" v-model="form.description" prepend-icon="mdi-information-outline"></v-textarea>
-        <v-file-input label="Choose a Video File *" v-model="form.defaultName" accept="video/*" :rules="[rules.required]"
-          @change="inputVideo($event)"></v-file-input>
+          :rules="[rules.required, rules.name]"
+        ></v-text-field>
+        <v-textarea
+          label="Description"
+          v-model="form.description"
+          prepend-icon="mdi-information-outline"
+        ></v-textarea>
+        <v-file-input
+          label="Choose a Video File *"
+          v-model="form.defaultName"
+          accept="video/*"
+          :rules="[rules.required]"
+          @change="inputVideo($event)"
+        ></v-file-input>
         <div class="mt-6">
-          <v-btn type="submit" prepend-icon="mdi-content-save" color="success"> Submit </v-btn>
+          <v-btn type="submit" prepend-icon="mdi-content-save" color="success">
+            Submit
+          </v-btn>
           <RouterLink class="router-link" to="/">
-            <v-btn class="ml-6" prepend-icon="mdi-close" color="error"> Cancel </v-btn>
+            <v-btn class="ml-6" prepend-icon="mdi-close" color="error">
+              Cancel
+            </v-btn>
           </RouterLink>
         </div>
       </v-form>
@@ -33,10 +50,10 @@ export default {
         description: "",
       },
       rules: {
-        required: value => !!value || 'Required.',
-        name: value => {
+        required: (value) => !!value || "Required.",
+        name: (value) => {
           const pattern = /^\S+$/;
-          return pattern.test(value) || 'Invalid Video Name.';
+          return pattern.test(value) || "Invalid Video Name.";
         },
       },
     };
