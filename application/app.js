@@ -2,26 +2,20 @@ const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
 const firebaseService = require("./firebase-service");
+require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 
 var baseUrl = process.env.BASE_URL || "http://localhost:3030";
 var urlNginx = `${baseUrl}/hls/`;
 var suffix = "/master.m3u8";
 var file_name = [];
-var videos_storage = [];
-/////////////////////////////////////////
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // cb(null, '/usr/src/app/videos') // specify the upload directory
     cb(null, "./videos"); // specify the upload directory
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname); // specify the file name
     file_name.push(file.originalname);
-    // videos_storage.push({
-    //   url: `${urlNginx}${file.originalname}${suffix}`,
-    //   name: file.originalname,
-    // });
   },
 });
 
@@ -32,7 +26,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
-  console.log(req);
   res.sendFile(__dirname + "/temp.html");
 });
 
@@ -43,7 +36,6 @@ app.get("/videos", async (req, res) => {
 
 // api to delete a video by name
 app.delete("/delete/:name", async (req, res) => {
-  console.log(req);
   const videoName = req.params.name;
   const response = await firebaseService.deleteVideoByName(videoName);
   if (response) {
@@ -55,7 +47,6 @@ app.delete("/delete/:name", async (req, res) => {
 
 // api to update the video
 app.put("/update", async (req, res) => {
-  // console.log(req);
   const videoName = req.body.name;
   const videoDescription = req.body.description;
   const response = await firebaseService.updateVideos(
@@ -82,7 +73,6 @@ app.post("/upload", upload.single("file"), (req, res, next) => {
     `${urlNginx}${video.originalname}${suffix}`,
     req.body.description
   );
-  // firebaseService.addVideos(file.originalname, `${urlNginx}${file.originalname}${suffix}`, req.body.name);
   res.send("Video uploaded successfully");
 });
 

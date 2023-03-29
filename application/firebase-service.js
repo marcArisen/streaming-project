@@ -44,7 +44,6 @@ async function getVideos() {
   let videos = [];
   snapshot.forEach((doc) => {
     videos.push(doc.data());
-    // console.log(doc.id, "=>", doc.data());
   });
   return videos;
 }
@@ -56,7 +55,6 @@ async function getVideoByName(videoName) {
   let videoID;
   if (!snapshot.empty) {
     snapshot.forEach((doc) => {
-      // console.log("Videos:", doc.data());
       video = doc.data();
       videoID = doc.id;
     });
