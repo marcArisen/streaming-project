@@ -30,14 +30,10 @@
       :key="video"
     >
       <v-card class="text-center">
-        <video-player
-          :src="video.url"
-          controls
-          loop="true"
-          width="100"
-          height="100"
-        />
-        <br />
+        <video-player class="my-2" :src="video.url" controls width="450" />
+        <p class="font-weight-black">{{ video.name }}</p>
+        <p v-if="video.description">{{ video.description }}</p>
+        <p v-else>(No description)</p>
         <v-btn class="mx-4 my-3" color="error" @click="openDialog(video.name)">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
@@ -48,7 +44,7 @@
     <v-card>
       <v-toolbar height="80" color="error">
         <v-col class="d-flex justify-space-around">
-          <v-icon icon="mdi-alert-circle-outline" size="70"></v-icon>
+          <v-icon icon="mdi-alert-circle-outline" size="60"></v-icon>
         </v-col>
       </v-toolbar>
       <v-card-text class="text-center">
@@ -57,8 +53,12 @@
         {{ deleteVideoName }} ?
       </v-card-text>
       <v-card-actions class="justify-center">
-        <v-btn color="success" @click="showDialog = false">Cancel</v-btn>
-        <v-btn color="error" @click="deleteVideo()">Delete</v-btn>
+        <v-btn color="success" variant="outlined" @click="showDialog = false">
+          Cancel
+        </v-btn>
+        <v-btn color="error" variant="outlined" @click="deleteVideo()">
+          Delete
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
