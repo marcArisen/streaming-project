@@ -24,6 +24,5 @@ export default {
 
 .v-messages__message {
   margin-top: -5px;
-  text-align: left;
 }
 </style>
