@@ -1,15 +1,23 @@
 <!-- CSS  -->
-<link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
-
+<link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet" />
 
 <!-- HTML -->
-<video id='hls-example'  class="video-js vjs-default-skin" width="400" height="300" controls>
-<source type="application/x-mpegURL" src="http://localhost:3030/hls/devito,360p.mp4,480p.mp4,720p.mp4,.en_US.vtt,.urlset/master.m3u8">
+<video
+  id="hls-example"
+  class="video-js vjs-default-skin"
+  width="400"
+  height="300"
+  controls
+>
+  <source
+    type="application/x-mpegURL"
+    src="http://localhost:3030/hls/devito,360p.mp4,480p.mp4,720p.mp4,.en_US.vtt,.urlset/master.m3u8"
+  />
 </video>
 <form action="/upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="video">
-    <input type="submit" value="Upload">
-  </form>
+  <input type="file" name="video" />
+  <input type="submit" value="Upload" />
+</form>
 <h1>It's been six days</h1>
 3
 <!-- JS code -->
@@ -19,6 +27,6 @@
 <script src="https://vjs.zencdn.net/7.2.3/video.js"></script>
 
 <script>
-var player = videojs('hls-example');
-player.play();
+  var player = videojs("hls-example");
+  player.play();
 </script>
